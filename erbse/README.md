@@ -87,15 +87,12 @@ E.g. pessing the button, after a short time is passed ( for toggle ) the led lig
 Reset handling
 ------------------
 Auto detected reset vs Manual reset:
-* Auto detected reset:
-When no signal gets detected for a given time the internal sequencer gets reseted to the first beat. 
-This will also be signaled by a short flashing RED / GREEN for each channel. 
-Would be the same as a reset signal as known from other sequencers. 
+* When no signal gets detected for a given time the internal sequencer gets reseted to the first beat. 
+This will also be signaled by a short flashing RED / GREEN for each channel. Would be the same as a reset signal as known from other sequencers. 
 
-* Manual Reset
-Pressing both buttons very long will force a *manual reset*. This only resets the configuration and modes.
-It doent reset the internal clock and sequencer possitions. This will help reset all modes to random ( orginal behaviour )
-during a jam by not losing the seuqnce tracking.
+ * Pressing both buttons very long will force a *manual reset*. This only resets the configuration and modes.
+It doesn't reset the internal clock and sequencer possitions. This will help reset all modes to random ( orginal behaviour )
+during a jam by not losing the seuquencer tracking.
 
 Limitations/Notes:
 ------------------
