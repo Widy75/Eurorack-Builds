@@ -78,23 +78,27 @@ Led light table for Single button handling:
 | long press			|	Link Channels OFF |  BLINK RED		(*see note below, the order of button release define the master) |
 |very long press	|		Manual Reset		| 	HOLD BLINK RED		(both channels) blinks alwayse since all is off |
 
-Auto detected reset vs Manual reset:
-When no signal gets detected for a given time the internal sequencer gets reseted to the first beat. 
-This will also be signaled by a short flashing RED / GREEN for each channel. 
-Would be the same as a reset signal as known from other sequencers. 
-
-Pressing both buttons very long will force a *manual reset*. This only resets the configuration and modes.
-It doent reset the internal clock and sequencer possitions. This will help reset all modes to random ( orginal behaviour )
-during a jam by not losing the seuqnce tracking.
-
 Note:
 (*)When pressing both buttons at same time, the first which gets release is the linked channel. The button wich gets released last defines the master channel. if both channels get linked to each other the last active link mode gets automaticly disabled. 
 
 When holding a button down, the the led becomes light up a bit dimmed (flashes fast) to singal what mode gets next on releasing the button.
 E.g. pessing the button, after a short time is passed ( for toggle ) the led light up dimmed red and when releasing in dimed red the led light up full red if latch was selected or blink red if latch was deselected.
 
+Reset handling
+------------------
+Auto detected reset vs Manual reset:
+* Auto detected reset:
+When no signal gets detected for a given time the internal sequencer gets reseted to the first beat. 
+This will also be signaled by a short flashing RED / GREEN for each channel. 
+Would be the same as a reset signal as known from other sequencers. 
+
+* Manual Reset
+Pressing both buttons very long will force a *manual reset*. This only resets the configuration and modes.
+It doent reset the internal clock and sequencer possitions. This will help reset all modes to random ( orginal behaviour )
+during a jam by not losing the seuqnce tracking.
+
 Limitations/Notes:
-__________________
+------------------
 * A decision was made to implement only 16 step patterns. Deriving new grooves with toggle and latch come more handy as 32 step sequences.
 * Internal clock and reset detection are still active in random mode. Change from pattern-mode to random-mode and back keeps the pattern tracking in sync.
 * Reset detection was done by a fixed given time no input change ( has pros and cons ), with the advantage of no repatching the hardware.
