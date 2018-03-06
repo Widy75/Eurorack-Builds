@@ -1,6 +1,9 @@
 Release Histroy 
 ===============
-* Erbse V01 (alternative Firmware for MI Branches) - inital release 4 Match 2018
+* Erbse V01 (alternative Firmware for MI Branches) 
+  - inital release 4 Match 2018
+* Erbse V02 - (current in test stage) 
+  - Improved reset detection (planed weekend 10 Match 2018)
 
 Manual 
 ======
@@ -12,7 +15,9 @@ Toggle v2:
 Original toggle was implemented as XOR from previouse outcome and current outcome. 
 Toggle v2 also works when previouse outcome and current outcome are low ( will toggle to high ) 
 
-   
+E.g. in random mode toggle has no effect when knos are counterclockwise CCW, since the random generator alwyse generates low in out 1 per channel. If toggle v2 is active the out 1 and out 2 will alternate 50%. 
+
+  
 Pattern mode per channel:
 -------------------------
 Hardware-in signal triggers an internal 16 step sequencer per channel. Original Bernouille random mode gets deactivated. Knob/CV controls pattern (1-32). Some patterns work as simple clock divider, some are derived from good old Shruthi.
@@ -20,13 +25,21 @@ Hardware-in signal triggers an internal 16 step sequencer per channel. Original 
 Control:
 * Each Knob/CV swith pattern number from fixed given patterns 
 
+Note:With latch active there could be nice nice clock singnales derived.
+Also the Sruthi patterns generates some nicce grooves for some bread and butter sequences.
+
 Euclid sequencer mode:
 -----------------------
-Hardware-in signal triggers internal 16 step euclid sequencer (one for both channels).
+Hardware-in signal triggers internal 16 step euclid sequencer. The generated sequence is shared on both channels. Both channels could have individual clock in and get tracked indenpendend. 
 
 Control:
 * Knob/CV channel 1 controls hits (0-32).
 * Knob/CV channel 2 controls length (0-32).
+
+Note:
+Because of the limited hardware there is no rotate button of the generated sequences. The algorithm tries alwyse to force first beat.
+(Switching between length and rotate was not handy and was leading to an additnal mode selection which was confusing).
+By linking channel together and combine toggle and latch new patterns could be derived for each channel.
 
 Link mode:
 ----------
@@ -35,8 +48,9 @@ Link mode:
  Options:
  * Channel 1 is master, channel 2 is linked to channel 1.
  * Channel 2 is master, channel 1 is linked to channel 2.
- 
  Both set as master is not possible! (due to physical limitation)
+ 
+ Note:If both channels get linked to each other, the previouse link gets disabled.
 
 Priority:
 ----------
@@ -74,15 +88,15 @@ Led light table for Single button handling:
 | --- | --- | --- |
 | short press	 |			Euclid pattern 	ON |  GREEN			(both channels) |
 | short press		|		Euclid pattern OFF | BLINK GREEN	(both channels) |
-| long press			|	Link Channels 	ON  | RED			(*see notes below, the order of button release define the master) |
-| long press			|	Link Channels OFF |  BLINK RED		(*see note below, the order of button release define the master) |
-|very long press	|		Manual Reset		| 	HOLD BLINK RED		(both channels) blinks alwayse since all is off |
+| long press			|	Link Channels 	ON  | RED (*see notes below, the order of button release define the master) |
+| long press			|	Link Channels OFF |  BLINK RED (*see note below, the order of button release define the master) |
+|very long press	|		Manual Reset		| 	start BLINK RED on hold (both channels) blinks alwayse since all is off |
 
 Note:
 (*)When pressing both buttons at same time, the first which gets release is the linked channel. The button wich gets released last defines the master channel. if both channels get linked to each other the last active link mode gets automaticly disabled. 
 
 When holding a button down, the the led becomes light up a bit dimmed (flashes fast) to singal what mode gets next on releasing the button.
-E.g. pessing the button, after a short time is passed ( for toggle ) the led light up dimmed red and when releasing in dimed red the led light up full red if latch was selected or blink red if latch was deselected.
+E.g. pessing the button, after a short time is passed ( for latch ) the led light up dimmed red and when releasing in dimed red the led light up full red if latch was selected or blink red if latch was deselected.
 
 Reset handling
 ------------------
@@ -100,6 +114,10 @@ Limitations/Notes:
 * Internal clock and reset detection are still active in random mode. Change from pattern-mode to random-mode and back keeps the pattern tracking in sync.
 * Reset detection was done by a fixed given time no input change ( has pros and cons ), with the advantage of no repatching the hardware.
 
-
+Known problems:
+* To short trigger could be missed.	Especial in euclid sequencer mode. Generating new sequences costs cpu and the clock in only read naive 
+  in a loop, rather than implement interrupts. (Have to be fixed fix). There are no problem by driving erbse with normal clock diverders witch produce gates. I discoverd problems so far only if i drive erbse with grids, that sometimes triggers are not detected. 
+* Link mode enable disable could lose tracking ( beat shifts ) when used in combination with latch mode, since latch influce edge detection. 
+  
 Have fun 
 Widy
