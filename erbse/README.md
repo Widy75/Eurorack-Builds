@@ -2,8 +2,11 @@ Release Histroy
 ===============
 * Erbse V01 (alternative Firmware for MI Branches) 
   - inital release 4 Match 2018
+  - 
 * Erbse V02 - (current in test stage) 
-  - Improved reset detection (planed weekend 10 Match 2018)
+  - released 11 March 2018
+  - Improved reset detection
+  - Changed some patterns in pattern mode per channel
 
 Manual 
 ======
